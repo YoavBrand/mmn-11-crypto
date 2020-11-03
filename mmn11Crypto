@@ -1,0 +1,43 @@
+
+public class CodeTest {
+	
+	static String letterList = "abcdefghijklmnopqrstuvwxyz";
+	static int aUnicodeValue= 97;
+	static int numberOfLettersInLang=26;
+
+	public static void main(String[] args) {
+
+		String plainText1 = "WBQFMDHCUFODVMOQOSGOFQWDVSFOZGCYBCKBOGHVSGVWTHQWDVSFQOSGOFGQCRSCFQOSGOFGVWTHWGCBSCTHVSGWADZSGHOBRACGHKWRSZMYBCKBSBQFMDHWCBHSQVBWEISGWHWGOHMDSCTGIPGHWHIHWCBQWDVSFWBKVWQVSOQVZSHHSFWBHVSDZOWBHSLHWGFSDZOQSRPMOZSHHSFGCASTWLSRBIAPSFCTDCGWHWCBGRCKBHVSOZDVOPSHTCFSLOADZS";
+		String plainText2 = "KWHVOZSTHGVWTHCT3RKCIZRPSFSDZOQSRPMOSKCIZRPSQCASPOBRGCCBHVSASHVCRWGBOASROTHSFXIZWIGQOSGOFKVCIGSRWHWBVWGDFWJOHSQCFFSGDCBRSBQS";		
+		System.out.println(decryption(plainText1,14));
+		System.out.println(decryption(plainText2,14));
+		
+	}
+	
+	//Encrypt the text
+	public static String encryption(String plaintext, int key) {
+		String res="";
+		for(int i=0; i<plaintext.length(); i++) {
+			res = res.concat(Character.toString(letterList.charAt((plaintext.toUpperCase().codePointAt(i) -aUnicodeValue +numberOfLettersInLang + key)%numberOfLettersInLang)));
+
+		}
+		return res;			
+	}
+	
+	//Decrypt the plaintext into our code
+	public static String decryption(String plaintext, int key) {
+		String res="";
+		for(int i=0; i<plaintext.length(); i++) {
+			
+			//if you reach numbers, just continue and don't change them
+			if(plaintext.toLowerCase().codePointAt(i)<90) {
+				res = res.concat(Character.toString(plaintext.charAt(i)));
+				continue;
+			}
+			res = res.concat(Character.toString(letterList.charAt((plaintext.toLowerCase().codePointAt(i) -aUnicodeValue +numberOfLettersInLang - key)%numberOfLettersInLang)));
+		}
+		return res;
+	}
+}
+
+
